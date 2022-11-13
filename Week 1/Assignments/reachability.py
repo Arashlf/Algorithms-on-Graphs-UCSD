@@ -3,7 +3,15 @@
 import sys
 
 def reach(adj, x, y):
-    #write your code here
+    temp = adj.copy()
+    while len(temp[x]) > 0:
+        i = temp[x][0]
+        if i == y:
+            return 1
+        temp[i].pop(temp[i].index(x))
+        temp[x].pop(0)
+        if reach(temp, i, y):
+            return 1
     return 0
 
 if __name__ == '__main__':

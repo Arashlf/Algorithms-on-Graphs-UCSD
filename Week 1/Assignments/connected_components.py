@@ -2,10 +2,19 @@
 
 import sys
 
+def explore(adj, visited, v, cc):
+    visited[v] = cc
+    for i in adj[v]:
+        if visited[i] == 0:
+            explore(adj, visited, i, cc)
 
 def number_of_components(adj):
     result = 0
-    #write your code here
+    visited = [0] * n
+    for idx, i in enumerate(visited):
+        if visited[idx] == 0:
+            explore(adj, visited, idx, result+1)
+            result += 1
     return result
 
 if __name__ == '__main__':
