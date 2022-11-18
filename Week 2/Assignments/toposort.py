@@ -2,15 +2,21 @@
 
 import sys
 
-def dfs(adj, used, order, x):
-    #write your code here
-    pass
+def dfs(adj, visited, order, node):
+    if not visited[node]:
+        visited[node] = 1
+        for neighbour in adj[node]:
+            dfs(adj, visited, order, neighbour)
+        order.append(node)
 
 
 def toposort(adj):
-    used = [0] * len(adj)
+    visited = [0] * n
     order = []
-    #write your code here
+    for idx, i in enumerate(visited):
+        if visited[idx] == 0:
+            dfs(adj, visited, order, idx)
+    order.reverse()
     return order
 
 if __name__ == '__main__':
