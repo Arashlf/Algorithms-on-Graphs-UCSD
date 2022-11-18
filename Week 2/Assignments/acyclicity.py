@@ -13,7 +13,6 @@ def explore(adj, visited, v):
     visited[v] = 1
 
 def acyclic(adj):
-    cc = 0
     visited = n * [0]
     for idx, i in enumerate(visited):
         if visited[idx] == 0:
