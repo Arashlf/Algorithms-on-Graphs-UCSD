@@ -1,11 +1,21 @@
 #Uses python3
 
+from dis import dis
 import sys
 import queue
 
 def distance(adj, s, t):
-    #write your code here
-    return -1
+    queue = []
+    dist = n * [-1]
+    dist[s] = 0
+    queue.append(s)
+    while queue:
+        u = queue.pop(0)
+        for idx, i in enumerate(adj[u]):
+            if dist[i] == -1:
+                queue.append(i)
+                dist[i] = dist[u] + 1
+    return dist[t]
 
 if __name__ == '__main__':
     input = sys.stdin.read()
