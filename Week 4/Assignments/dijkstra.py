@@ -2,11 +2,24 @@
 
 import sys
 
+def Dijkstra(adj, cost, s, t):
+    dist = n * [int(1e12)]
+    # prev = n * [-1]
+    dist[s] = 0
+    H = ({x : dist[x] for x in range(n)})
+    while H:
+        u = min(H, key=H.get)
+        del H[u]
+        for idx, i in enumerate(adj[u]):
+            if dist[i] > dist[u] + cost[u][idx]:
+                dist[i] = dist[u] + cost[u][idx]
+                # prev[i] = u       Doesn't need
+                H[i] = dist[i]
+    return dist[t]
 
 def distance(adj, cost, s, t):
-    #write your code here
-    return -1
-
+    dist = Dijkstra(adj, cost, s, t)
+    return -1 if (dist == int(1e12)) else dist
 
 if __name__ == '__main__':
     input = sys.stdin.read()
