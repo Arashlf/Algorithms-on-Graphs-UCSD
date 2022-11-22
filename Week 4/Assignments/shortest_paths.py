@@ -1,12 +1,42 @@
 #Uses python3
 
 import sys
-import queue
+
+def distance_f(adj, dist2, s):
+    dist = dist2.copy()
+    queue = []
+    queue.append(s)
+    while queue:
+        u = queue.pop(0)
+        for idx, i in enumerate(adj[u]):
+            if dist[i] == -1:
+                queue.append(i)
+                dist[i] = dist[u] + 1
+    return dist
+
+def relax(dist, prev, u, v, cost):
+    if dist[v] > dist[u] + cost:
+            dist[v] = dist[u] + cost
+            prev[v] = u
+
+def bellmanFord(adj, dist, prev, cost):
+    for idx in range(n-1):
+        for u, vs in enumerate(adj):
+            for l, v in enumerate(vs):
+                relax(dist, prev, u, v, cost[u][l])
 
 
 def shortet_paths(adj, cost, s, distance, reachable, shortest):
-    #write your code here
-    pass
+    dist = n * [int(1e7)]
+    prev = n * [-1]
+    dist[0] = 0
+    bellmanFord(adj, dist, prev, cost)
+    dist2 = dist.copy()
+    A = set()
+    for u, vs in enumerate(adj):
+            for l, v in enumerate(vs):
+                relax(dist2, prev, u, v, cost[u][l])
+    shortest = distance_f(adj, dist2, s)
 
 
 if __name__ == '__main__':
@@ -25,13 +55,13 @@ if __name__ == '__main__':
     s -= 1
     distance = [10**19] * n
     reachable = [0] * n
-    shortest = [1] * n
+    shortest = [0] * n
     shortet_paths(adj, cost, s, distance, reachable, shortest)
     for x in range(n):
-        if reachable[x] == 0:
-            print('*')
-        elif shortest[x] == 0:
+        if shortest[x] != 0:
             print('-')
+        elif reachable[x] == 0:
+            print('*')
         else:
             print(distance[x])
 
