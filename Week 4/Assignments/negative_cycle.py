@@ -2,10 +2,29 @@
 
 import sys
 
+def relax(dist, prev, u, v, cost):
+    if dist[v] > dist[u] + cost:
+            dist[v] = dist[u] + cost
+            prev[v] = u
+
+def bellmanFord(adj, dist, prev, cost):
+    for idx in range(n-1):
+        for u, vs in enumerate(adj):
+            for l, v in enumerate(vs):
+                relax(dist, prev, u, v, cost[u][l])
 
 def negative_cycle(adj, cost):
-    #write your code here
-    return 0
+    dist = n * [int(1e7)]
+    prev = n * [-1]
+    dist[0] = 0
+    bellmanFord(adj, dist, prev, cost)
+    dist2 = dist.copy()
+    for u, vs in enumerate(adj):
+            for l, v in enumerate(vs):
+                relax(dist2, prev, u, v, cost[u][l])
+    if dist == dist2:
+        return 0
+    return 1
 
 
 if __name__ == '__main__':
