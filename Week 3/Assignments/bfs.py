@@ -1,8 +1,6 @@
 #Uses python3
 
-from dis import dis
 import sys
-import queue
 
 def distance(adj, s, t):
     queue = []
