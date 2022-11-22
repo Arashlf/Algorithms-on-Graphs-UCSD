@@ -1,11 +1,25 @@
 #Uses python3
 
+import collections
 import sys
-import queue
 
 def bipartite(adj):
-    #write your code here
-    return -1
+    queue = collections.deque([])
+    dist = n * [-1]
+    for v in range(n):
+        if dist[v] != -1:
+            continue
+        dist[v] = 0
+        queue.append(v)
+        while queue:
+            u = queue.popleft()
+            for i in adj[u]:
+                if dist[i] == -1:
+                    queue.append(i)
+                    dist[i] = 1 - dist[u]
+                elif dist[i] == dist[u]:
+                    return 0
+    return 1
 
 if __name__ == '__main__':
     input = sys.stdin.read()
